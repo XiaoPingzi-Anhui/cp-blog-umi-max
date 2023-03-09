@@ -1,14 +1,12 @@
 import { UmiApiRequest, UmiApiResponse } from '@umijs/max';
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcryptjs';
 import { signToken, prismaErrorCatch } from '@/utils/jwt';
+import { ACCESS_TOKEN } from '@/constants';
 
 export default async function (req: UmiApiRequest, res: UmiApiResponse) {
   switch (req.method) {
     case 'POST':
       prismaErrorCatch(res, async (prisma: PrismaClient) => {
-        console.log('req.body:', req.body);
-        console.log('prisma.body:', prisma);
         const {
           email,
           authority,
@@ -22,7 +20,7 @@ export default async function (req: UmiApiRequest, res: UmiApiResponse) {
           data: {
             email,
             authority,
-            passwordHash: bcrypt.hashSync(password, 8),
+            passwordHash: password,
             username,
             sex,
             phoneNumber,
@@ -32,7 +30,7 @@ export default async function (req: UmiApiRequest, res: UmiApiResponse) {
         });
         res
           .status(201)
-          .setCookie('token', await signToken(user.userId))
+          .setCookie(ACCESS_TOKEN, await signToken(user.userId))
           .json({ ...user, passwordHash: undefined });
       });
       break;

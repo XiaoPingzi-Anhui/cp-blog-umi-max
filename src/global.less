@@ -1,0 +1,25 @@
+html {
+  height: 100%;
+  overflow: auto;
+  overflow: overlay;
+  &::-webkit-scrollbar {
+    width: 12px; /* 纵向滚动条宽度 */
+    height: 12px; /* 横向滚动条高度 */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #75878a80;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #7886aa99;
+  }
+}
+body {
+  height: 100%;
+  margin: 0;
+  #root {
+    height: 100%;
+  }
+}

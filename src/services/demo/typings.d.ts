@@ -46,16 +46,6 @@ declare namespace API {
 
   type UserGenderEnum = 'MALE' | 'FEMALE';
 
-  interface UserInfo {
-    id?: string;
-    name?: string;
-    /** nick */
-    nickName?: string;
-    /** email */
-    email?: string;
-    gender?: UserGenderEnum;
-  }
-
   interface UserInfoVO {
     name?: string;
     /** nick */
@@ -65,4 +55,33 @@ declare namespace API {
   }
 
   type definitions_0 = null;
+
+  interface ArticleInfo {
+    articlesId?: string;
+    title?: string;
+    content?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    author?: UserInfo;
+    authorId?: string;
+    tags?: string;
+    categories?: string;
+    likeCount?: string;
+    viewCount?: string;
+  }
+  interface UserInfo {
+    userId?: string;
+    email?: string;
+    authority?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    passwordHash?: string;
+    createArticles?: [];
+    username?: string;
+    sex: string;
+    phoneNumber?: string;
+    likeArticlesId?: string;
+    personalSignature?: string;
+    avatarUrl?: string;
+  }
 }

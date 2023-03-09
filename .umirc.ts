@@ -10,13 +10,20 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {},
+  styledComponents: {},
   layout: {
-    title: '@umijs/max',
+    title: '菜狗搬砖小站',
   },
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/login',
+    },
+    {
+      name: '登录',
+      path: '/login',
+      component: './login',
+      layout: false,
     },
     {
       name: '首页',
@@ -29,10 +36,13 @@ export default defineConfig({
       component: './Access',
     },
     {
-      name: ' CRUD 示例',
+      name: ' CRUD 示例1',
       path: '/table',
       component: './Table',
     },
   ],
-  npmClient: 'pnpm',
+  /* 应用里要读到环境变量得在这里也配一下 */
+  define: {
+    'process.env.JWT_SECRET': process.env.JWT_SECRET,
+  },
 });
