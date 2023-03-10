@@ -7,6 +7,10 @@ export const LoginPageWrapper = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     align-items: center;
+    justify-content: space-around;
+    .ant-pro-form-login-page-notice {
+      max-width: fit-content;
+    }
     .ant-pro-form-login-page-container {
       justify-content: center;
       height: fit-content;
