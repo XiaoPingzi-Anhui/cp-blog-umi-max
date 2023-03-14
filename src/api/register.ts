@@ -30,7 +30,10 @@ export default async function (req: UmiApiRequest, res: UmiApiResponse) {
         });
         res
           .status(201)
-          .setCookie(ACCESS_TOKEN, await signToken(user.userId))
+          .setCookie(
+            ACCESS_TOKEN,
+            await signToken(user as unknown as API.UserInfo),
+          )
           .json({ ...user, passwordHash: undefined });
       });
       break;

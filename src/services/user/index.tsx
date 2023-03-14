@@ -3,7 +3,7 @@ import { request } from '@umijs/max';
 export const register = (params: API.UserInfo) =>
   request('/api/register', {
     method: 'POST',
-    params: {
+    data: {
       ...params,
     },
   });
@@ -11,7 +11,7 @@ export const register = (params: API.UserInfo) =>
 export const login = (params: API.UserInfo) =>
   request('/api/login', {
     method: 'POST',
-    params: {
+    data: {
       ...params,
     },
   });

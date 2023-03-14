@@ -76,9 +76,10 @@ declare namespace API {
     createdAt?: Date;
     updatedAt?: Date;
     passwordHash?: string;
+    password?: string;
     createArticles?: [];
     username?: string;
-    sex: string;
+    sex?: string;
     phoneNumber?: string;
     likeArticlesId?: string;
     personalSignature?: string;
