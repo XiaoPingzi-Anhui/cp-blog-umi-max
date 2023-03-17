@@ -56,7 +56,13 @@ const AccessPage: React.FC = () => {
       {userName}
       {/* <Access accessible={access.canSeeAdmin}> */}
       <Button onClick={submit}>只有 Admin 可以看到这个按钮</Button>
-      <Button onClick={() => seta((pre) => pre + 1)}>{a} </Button>
+      <Button
+        onClick={() => {
+          seta((pre) => pre + 1);
+        }}
+      >
+        {a}{' '}
+      </Button>
       {/* </Access> */}
     </PageContainer>
   );

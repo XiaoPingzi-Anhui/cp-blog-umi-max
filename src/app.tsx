@@ -40,10 +40,8 @@ export const layout: RunTimeLayoutConfig = (initialData) => {
   return {
     logo: logoSvg,
     title: '菜狗搬砖小站',
-    /* menuHeaderRender: () => <div> menuHeader</div>,
-    menuFooterRender: () => <div> menuFooter</div>,
-    menuExtraRender: () => <div> menuExtra</div>, */
     layout: 'top',
+    // rightContentRender: () => <div> rightContentRender</div>,
     onPageChange: async () => {
       try {
         await verifyToken(Cookies.get(ACCESS_TOKEN)!);
@@ -51,6 +49,10 @@ export const layout: RunTimeLayoutConfig = (initialData) => {
         message.info('登录信息过期，请重新登陆！');
         history.push(LOGIN_LINK);
       }
+    },
+    logout: () => {
+      Cookies.remove(ACCESS_TOKEN);
+      history.push(LOGIN_LINK);
     },
     // fixedHeader: true,
   };

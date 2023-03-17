@@ -17,12 +17,12 @@ export default defineConfig({
   routes: [
     {
       path: '/',
-      redirect: '/login',
+      redirect: '/home',
     },
     {
       name: '登录',
-      path: '/login',
-      component: './login',
+      path: '/user/login',
+      component: './user/login',
       layout: false,
     },
     {
@@ -31,8 +31,26 @@ export default defineConfig({
       component: './home',
     },
     {
+      name: '走丢了',
+      path: '*',
+      hideInMenu: true,
+      component: './404.tsx',
+    },
+    {
+      name: '文章',
+      path: '/article',
+      routes: [
+        {
+          name: '新建文章',
+          path: '/article/create',
+          component: './article/create',
+        },
+      ],
+    },
+    {
       name: '权限演示',
       path: '/access',
+      // access: 'canSeeAdmin1',
       component: './Access',
     },
     {
