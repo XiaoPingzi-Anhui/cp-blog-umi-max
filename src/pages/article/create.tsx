@@ -1,25 +1,42 @@
-import React from 'react';
-import MarkdownIt from 'markdown-it';
+import { memo, useEffect, useState } from 'react';
+import { useControllableValue, useMemoizedFn } from 'ahooks';
 import MdEditor from 'react-markdown-editor-lite';
-// import style manually
-import 'react-markdown-editor-lite/lib/index.css';
+import ShowMarkDown from '@/components/markdown/showMarkDown';
 
 // Register plugins if required
 // MdEditor.use(YOUR_PLUGINS_HERE);
 
-// Initialize a markdown parser
-const mdParser = new MarkdownIt(/* Markdown-it options */);
-
-// Finish!
-function handleEditorChange({ html, text }: { html: string; text: string }) {
-  console.log('handleEditorChange', html, text);
+interface Props {
+  value?: string;
+  onChange?: (v: string) => void;
 }
-export default () => {
+
+const MarkDownEditor = ({ value, onChange }: Props) => {
+  const [text, setText] = useControllableValue(
+    { value, onChange },
+    { defaultValue: '' },
+  );
+  const [state, setState] = useState('');
+
+  const handleEditorChange = useMemoizedFn(
+    ({ text }: { html: string; text: string }) => {
+      console.log('handleEditorChange', text);
+      setText(text);
+      setState(text);
+    },
+  );
+
+  useEffect(() => console.log('text:', text), [text]);
+  useEffect(() => console.log('state:', state), [state]);
+
   return (
     <MdEditor
-      style={{ height: '500px' }}
-      renderHTML={(text) => mdParser.render(text)}
+      value={text}
+      style={{ height: '80vh' }}
+      renderHTML={(text) => <ShowMarkDown markDownText={text} />}
       onChange={handleEditorChange}
     />
   );
 };
+
+export default memo(MarkDownEditor);
