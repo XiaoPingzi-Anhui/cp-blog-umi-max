@@ -14,6 +14,15 @@ export default defineConfig({
   layout: {
     title: '菜狗搬砖小站',
   },
+  /*   plugins: [
+    require.resolve('@alita/plugins/dist/keepalive'),
+    require.resolve('@alita/plugins/dist/tabs-layout'),
+  ], */
+  // keepalive: [/./],
+  // keepalive: ['/home'],
+  /*   tabsLayout: {
+    hasCustomTabs: false,
+  }, */
   routes: [
     {
       path: '/',
