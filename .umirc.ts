@@ -50,9 +50,15 @@ export default defineConfig({
       path: '/article',
       routes: [
         {
-          name: '新建文章',
-          path: '/article/create',
-          component: './article/create',
+          name: '编辑文章',
+          path: '/article/edit',
+          component: './article/edit',
+        },
+        {
+          name: '文章详情',
+          path: '/article/detail/:id',
+          component: './article/detail',
+          hideInMenu: true,
         },
       ],
     },

@@ -2,6 +2,8 @@ import { memo, useEffect, useState } from 'react';
 import { useControllableValue, useMemoizedFn } from 'ahooks';
 import MdEditor from 'react-markdown-editor-lite';
 import ShowMarkDown from '@/components/markdown/showMarkDown';
+// 导入编辑器的样式
+import 'react-markdown-editor-lite/lib/index.css';
 
 // Register plugins if required
 // MdEditor.use(YOUR_PLUGINS_HERE);
