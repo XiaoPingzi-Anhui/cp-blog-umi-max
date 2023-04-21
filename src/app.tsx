@@ -40,7 +40,6 @@ export const layout: RunTimeLayoutConfig = (initialData) => {
   return {
     logo: logoSvg,
     title: '菜狗搬砖小站',
-    layout: 'top',
     // rightContentRender: () => <div> rightContentRender</div>,
     onPageChange: async () => {
       try {
@@ -54,6 +53,12 @@ export const layout: RunTimeLayoutConfig = (initialData) => {
       Cookies.remove(ACCESS_TOKEN);
       history.push(LOGIN_LINK);
     },
-    // fixedHeader: true,
+    fixSiderbar: true,
+    navTheme: 'light',
+    layout: 'mix',
+    contentWidth: 'Fluid',
+    colorPrimary: '#1677FF',
+    fixedHeader: false,
+    splitMenus: false,
   };
 };
