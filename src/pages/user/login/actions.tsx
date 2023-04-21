@@ -11,12 +11,7 @@ export default function Actions() {
   return (
     <div className={S['action-wrapper']}>
       <Divider plain>
-        <span
-          style={{ color: '#141414', fontWeight: 'normal', fontSize: 14 }}
-          onClick={() => {
-            fetch('/api/users1');
-          }}
-        >
+        <span style={{ color: '#141414', fontWeight: 'normal', fontSize: 14 }}>
           联系站长
         </span>
       </Divider>

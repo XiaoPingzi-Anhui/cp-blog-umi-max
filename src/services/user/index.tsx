@@ -1,6 +1,6 @@
 import { request } from '@umijs/max';
 
-const BASE_URL = 'https://cpblogapi.chenping.space/api';
+const BASE_URL = process.env.REQUEST_BASE_URL;
 
 export const register = (params: API.UserInfo) =>
   request('/api/register', {
@@ -16,12 +16,6 @@ export const login = (params: API.UserInfo) =>
     data: {
       ...params,
     },
-  });
-
-/** 获取所有的文章列表 */
-export const getArticleLists = () =>
-  request(`${BASE_URL}/articleLists`, {
-    method: 'GET',
   });
 
 /** 获取所有的文章列表 */
