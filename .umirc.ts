@@ -79,6 +79,6 @@ export default defineConfig({
     'process.env.JWT_SECRET': process.env.JWT_SECRET,
     'process.env.TOURIST_EMAIL': process.env.TOURIST_EMAIL,
     'process.env.TOURIST_PASSWORD': process.env.TOURIST_PASSWORD,
-    'process.env.MONGODB_URL': process.env.MONGODB_URL,
+    'process.env.REQUEST_BASE_URL': process.env.REQUEST_BASE_URL,
   },
 });
