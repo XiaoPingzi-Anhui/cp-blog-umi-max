@@ -1,9 +1,13 @@
 import { request } from '@umijs/max';
+import { REQ_BASE_URL } from '@/constants/url';
 
-const BASE_URL = process.env.REQUEST_BASE_URL;
+export const getAllUsers = () =>
+  request(`${REQ_BASE_URL}/userLists`, {
+    method: 'GET',
+  });
 
 export const register = (params: API.UserInfo) =>
-  request('/api/register', {
+  request(`${REQ_BASE_URL}/addNewUser`, {
     method: 'POST',
     data: {
       ...params,
@@ -11,15 +15,9 @@ export const register = (params: API.UserInfo) =>
   });
 
 export const login = (params: API.UserInfo) =>
-  request('/api/login', {
+  request(`${REQ_BASE_URL}/login`, {
     method: 'POST',
     data: {
       ...params,
     },
-  });
-
-/** 获取所有的文章列表 */
-export const getAllUsers = () =>
-  request(`${BASE_URL}/userLists`, {
-    method: 'GET',
   });

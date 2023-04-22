@@ -58,9 +58,6 @@ export default () => {
     if (tabType === TabType.LOGIN) {
       startLogin({ email, password });
     } else {
-      /*  {
-        email:'tourist@tourist', phoneNumber:'10000000000',username:'路人甲',password:'Tourist@123'
-      } */
       const { phoneNumber, username } = values;
 
       startRegister({

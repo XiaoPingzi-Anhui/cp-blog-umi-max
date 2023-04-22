@@ -21,6 +21,16 @@ export async function getInitialState(): Promise<InitialState> {
   return { name: userInfo?.username || '', userInfo };
 }
 
+const demoResponseInterceptors = (
+  response: Response,
+  options: RequestConfig,
+) => {
+  console.log('options:', options);
+  console.log('response:', response);
+  // response.headers.append('interceptors', 'yes yo');
+  return response;
+};
+
 export const request: RequestConfig = {
   timeout: 30000,
   headers: {
@@ -30,8 +40,10 @@ export const request: RequestConfig = {
     errorHandler() {},
     errorThrower() {},
   },
-  requestInterceptors: [],
-  responseInterceptors: [],
+  withCredentials: true,
+  // requestInterceptors: [authHeaderInterceptor],
+  //@ts-ignore
+  responseInterceptors: [demoResponseInterceptors],
 };
 
 /* 运行时配置 */

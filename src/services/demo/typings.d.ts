@@ -70,7 +70,7 @@ declare namespace API {
     viewCount?: string;
   }
   interface UserInfo {
-    userId?: string;
+    _id?: string;
     email?: string;
     authority?: string;
     createdAt?: Date;
@@ -84,5 +84,7 @@ declare namespace API {
     likeArticlesId?: string;
     personalSignature?: string;
     avatarUrl?: string;
+    age?: number;
+    birthday?: Date;
   }
 }
