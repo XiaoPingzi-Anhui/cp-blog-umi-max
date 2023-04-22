@@ -2,7 +2,7 @@
   "private": true,
   "author": "XiaoPingzi-Anhui",
   "scripts": {
-    "build": "prisma generate && max build",
+    "build": "max build",
     "dev": "max dev",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
@@ -13,7 +13,6 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.3.59",
-    "@prisma/client": "^3.15.2",
     "@umijs/max": "^4.0.55",
     "@upstash/redis": "^1.0.2",
     "ahooks": "^3.7.5",
