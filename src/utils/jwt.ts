@@ -1,6 +1,6 @@
-import { UmiApiResponse } from '@umijs/max';
+// import { UmiApiResponse } from '@umijs/max';
 import jwt from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
 import { TOKEN_VALIDITY_PERIOD } from '@/constants';
 
 const secret = process.env.JWT_SECRET;
@@ -32,7 +32,7 @@ export function verifyToken(token: string) {
   });
 }
 
-export async function prismaErrorCatch(
+/* export async function prismaErrorCatch(
   res: UmiApiResponse,
   run: (prisma: PrismaClient) => void,
 ) {
@@ -46,3 +46,4 @@ export async function prismaErrorCatch(
     });
   }
 }
+ */
