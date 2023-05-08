@@ -50,6 +50,11 @@ export default defineConfig({
       path: '/article',
       routes: [
         {
+          name: '文章列表',
+          path: '/article/lists',
+          component: './article/lists',
+        },
+        {
           name: '编辑文章',
           path: '/article/edit',
           component: './article/edit',

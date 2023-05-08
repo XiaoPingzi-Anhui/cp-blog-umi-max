@@ -47,6 +47,7 @@ const MarkDownEditor = () => {
 
   return (
     <PageContainer
+      header={{ title: '' }}
       footer={
         pageVisible
           ? [

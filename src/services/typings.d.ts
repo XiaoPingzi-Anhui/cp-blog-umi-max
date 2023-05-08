@@ -2,9 +2,17 @@
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 
 declare namespace API {
+  enum ResInfo {
+    Success = 'success',
+    Failed = 'failed',
+  }
+
+  enum ResCode {
+    OK = '',
+    Failed = 'Internal Server Error',
+  }
+
   interface PageInfo {
-    /** 
-1 */
     current?: number;
     pageSize?: number;
     total?: number;
@@ -12,63 +20,35 @@ declare namespace API {
   }
 
   interface PageInfo_UserInfo_ {
-    /** 
-1 */
     current?: number;
     pageSize?: number;
     total?: number;
     list?: Array<UserInfo>;
   }
 
-  interface Result {
-    success?: boolean;
-    errorMessage?: string;
-    data?: Record<string, any>;
-  }
-
-  interface Result_PageInfo_UserInfo__ {
-    success?: boolean;
-    errorMessage?: string;
-    data?: PageInfo_UserInfo_;
-  }
-
-  interface Result_UserInfo_ {
-    success?: boolean;
-    errorMessage?: string;
-    data?: UserInfo;
-  }
-
-  interface Result_string_ {
-    success?: boolean;
-    errorMessage?: string;
-    data?: string;
+  interface commonRes<T> {
+    data?: T[];
+    info: ResInfo;
+    returnCode: ResCode;
+    error?: any;
   }
 
   type UserGenderEnum = 'MALE' | 'FEMALE';
 
-  interface UserInfoVO {
-    name?: string;
-    /** nick */
-    nickName?: string;
-    /** email */
-    email?: string;
-  }
-
-  type definitions_0 = null;
-
   interface ArticleInfo {
-    articlesId?: string;
-    title?: string;
-    content?: string;
-    createdAt?: Date;
-    updatedAt?: Date;
-    author?: UserInfo;
+    _id: string;
+    title: string;
+    category: string;
+    labels: string;
+    readCount: number;
+    createdAt: Date;
+    updatedAt: Date;
     authorId?: string;
-    tags?: string;
-    categories?: string;
-    likeCount?: string;
-    viewCount?: string;
+    authorName?: string;
+    content?: string;
+    likeStar?: number;
   }
+
   interface UserInfo {
     _id?: string;
     email?: string;

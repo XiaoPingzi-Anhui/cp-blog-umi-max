@@ -3,6 +3,7 @@ import { useModel, history } from '@umijs/max';
 import { LoginFormPage } from '@ant-design/pro-components';
 import { Tabs, message, Tooltip } from 'antd';
 import bcrypt from 'bcryptjs';
+import Cookies from 'js-cookie';
 import { useMemoizedFn, useRequest } from 'ahooks';
 import { LoginPageWrapper } from './styles';
 import Action from './actions';
@@ -13,7 +14,7 @@ import { login, register } from '@/services/user';
 import logoSvg from '@/assets/images/logo.svg';
 import bgJpg from '@/assets/images/b3b10388de01440c8f11c4adcff61ec3.jpg';
 import { HOME_LINK } from '@/constants/url';
-import { Authority } from '@/constants';
+import { Authority, ACCESS_TOKEN } from '@/constants';
 import styles from './login.less';
 
 enum TabType {
@@ -32,7 +33,10 @@ export default () => {
   const useRequestOption = useMemo(
     () => ({
       manual: true,
-      onSuccess: () => {
+      onSuccess: (data: any) => {
+        if (data.cookie) {
+          Cookies.set(ACCESS_TOKEN, data.cookie);
+        }
         refresh();
         history.push(HOME_LINK);
       },

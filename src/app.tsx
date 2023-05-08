@@ -21,14 +21,12 @@ export async function getInitialState(): Promise<InitialState> {
   return { name: userInfo?.username || '', userInfo };
 }
 
-const demoResponseInterceptors = (
-  response: Response,
-  options: RequestConfig,
-) => {
-  console.log('options:', options);
-  console.log('response:', response);
-  // response.headers.append('interceptors', 'yes yo');
-  return response;
+const authHeaderInterceptor = (url: string, options: RequestConfig) => {
+  const authHeader = { Authorization: `${Cookies.get(ACCESS_TOKEN)}` };
+  return {
+    url: `${url}`,
+    options: { ...options, headers: authHeader },
+  };
 };
 
 export const request: RequestConfig = {
@@ -40,10 +38,10 @@ export const request: RequestConfig = {
     errorHandler() {},
     errorThrower() {},
   },
-  withCredentials: true,
-  // requestInterceptors: [authHeaderInterceptor],
+  // withCredentials: true,
+  requestInterceptors: [authHeaderInterceptor],
   //@ts-ignore
-  responseInterceptors: [demoResponseInterceptors],
+  // responseInterceptors: [demoResponseInterceptors],
 };
 
 /* 运行时配置 */
