@@ -13,7 +13,7 @@ export async function getInitialState(): Promise<InitialState> {
   try {
     const token = Cookies.get(ACCESS_TOKEN);
     const tokenPayload = await verifyToken(token!);
-    userInfo = tokenPayload?.userInfo;
+    userInfo = tokenPayload?.userInfo || {};
     console.log('userInfo:', userInfo);
   } catch (error) {
     history.push(LOGIN_LINK);
