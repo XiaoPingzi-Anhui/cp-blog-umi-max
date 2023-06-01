@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Button } from 'antd';
+// import { Button } from 'antd';
 
 export default function useActivityConfig() {
   const activityConfig = useMemo(
@@ -12,7 +12,7 @@ export default function useActivityConfig() {
       },
       title: '全新升级的博客2.0',
       subTitle: <p>增加用户模块，大家可以来发表自己的博客</p>,
-      action: (
+      /* action: (
         <Button
           size="large"
           style={{
@@ -24,7 +24,7 @@ export default function useActivityConfig() {
         >
           查看旧版
         </Button>
-      ),
+      ), */
     }),
     [],
   );

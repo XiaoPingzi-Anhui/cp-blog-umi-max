@@ -18,7 +18,7 @@ export async function getInitialState(): Promise<InitialState> {
   } catch (error) {
     history.push(LOGIN_LINK);
   }
-  return { name: userInfo?.username || '', userInfo };
+  return { userInfo };
 }
 
 const authHeaderInterceptor = (url: string, options: RequestConfig) => {

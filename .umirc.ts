@@ -48,6 +48,7 @@ export default defineConfig({
     {
       name: '文章',
       path: '/article',
+      hideInBreadcrumb: true,
       routes: [
         {
           name: '文章列表',
@@ -58,25 +59,17 @@ export default defineConfig({
           name: '编辑文章',
           path: '/article/edit',
           component: './article/edit',
+          access: 'canEdit',
+          hideInBreadcrumb: true,
         },
         {
           name: '文章详情',
           path: '/article/detail/:id',
           component: './article/detail',
           hideInMenu: true,
+          hideInBreadcrumb: true,
         },
       ],
-    },
-    {
-      name: '权限演示',
-      path: '/access',
-      // access: 'canSeeAdmin1',
-      component: './Access',
-    },
-    {
-      name: ' CRUD 示例1',
-      path: '/table',
-      component: './Table',
     },
   ],
   /* 应用里要读到环境变量得在这里也配一下 */
