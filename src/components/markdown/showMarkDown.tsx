@@ -6,6 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 // import MarkNav from 'markdown-navbar';
+// import 'markdown-navbar/dist/navbar.css';
 
 export default function ShowMarkDown({
   markDownText,
@@ -13,32 +14,37 @@ export default function ShowMarkDown({
   markDownText: string;
 }) {
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm, remarkMath]}
-      rehypePlugins={[rehypeKatex]}
-      components={{
-        code({ inline, className, children, ...props }) {
-          const match = /language-(\w+)/.exec(className || '');
-          return !inline && match ? (
-            <SyntaxHighlighter
-              language={match[1]}
-              /* @ts-ignore */
-              style={coldarkCold}
-              PreTag="div"
-              {...props}
-            >
-              {String(children).replace(/\n$/, '')}
-            </SyntaxHighlighter>
-          ) : (
-            <code className={className} {...props}>
-              {children}
-            </code>
-          );
-        },
-      }}
-    >
-      {markDownText}
-    </ReactMarkdown>
-    //  <MarkNav className="toc-list" source={state} ordered={true} />
+    <>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+        components={{
+          code({ inline, className, children, ...props }) {
+            const match = /language-(\w+)/.exec(className || '');
+            return !inline && match ? (
+              <SyntaxHighlighter
+                language={match[1]}
+                /* @ts-ignore */
+                style={coldarkCold}
+                PreTag="div"
+                {...props}
+              >
+                {String(children).replace(/\n$/, '')}
+              </SyntaxHighlighter>
+            ) : (
+              <code className={className} {...props}>
+                {children}
+              </code>
+            );
+          },
+        }}
+      >
+        {markDownText}
+      </ReactMarkdown>
+      {/* <MarkNav
+        // className="toc-list"
+        source={markDownText}
+      /> */}
+    </>
   );
 }

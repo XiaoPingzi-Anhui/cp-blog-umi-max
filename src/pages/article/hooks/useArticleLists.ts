@@ -3,10 +3,10 @@ import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
 import { getAllArticles } from '@/services/article';
 
-export type articleListsType = Record<string, API.ArticleInfo[]>;
+export type ArticleListsType = Record<string, API.ArticleInfo[]>;
 
-interface ArticleInfosType {
-  articleLists: articleListsType;
+export interface ArticleInfosType {
+  articleLists: ArticleListsType;
   allCategories: string[];
   allLabels: string[];
 }
@@ -21,7 +21,6 @@ export default function useArticleLists() {
   const { error, loading } = useRequest(getAllArticles, {
     onSuccess: (data) => {
       if (data?.data) {
-        console.log('data:', data);
         let allLabels: string[] = [];
         const articleLists = data.data
           /* 按发布时间倒序排列 */
@@ -34,7 +33,7 @@ export default function useArticleLists() {
             if (pre[curCategory]) pre[curCategory].push(cur);
             else pre[curCategory] = [cur];
             return pre;
-          }, {} as articleListsType);
+          }, {} as ArticleListsType);
 
         setArticleInfos({
           articleLists,
