@@ -4,7 +4,7 @@ export default (initialState: InitialState) => {
   console.log('initialState:', initialState);
   const {
     userInfo: { authority },
-  } = initialState;
+  } = initialState || { userInfo: {} };
   return {
     isTourist: authority === '游客',
     canEdit: authority !== '游客',
