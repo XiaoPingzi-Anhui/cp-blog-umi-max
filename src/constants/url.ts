@@ -5,3 +5,6 @@ export const LOGIN_LINK = '/user/login';
 export const _404_LINK = '/404';
 export const ARTICLE_EDIT = '/article/edit';
 export const ARTICLE_DETAIL = '/article/detail';
+export const ARTICLE_LISTS = '/article/lists';
+
+export const NO_KEEPALIVE_URL = [ARTICLE_EDIT, ARTICLE_DETAIL];

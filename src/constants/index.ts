@@ -11,7 +11,7 @@ export enum Authority {
 }
 
 /** 以下颜色用于图表中颜色，包括不仅限于折线图、柱状图、饼图等，颜色先后次序按下面顺序排列循环 */
-export const colorLists = [
+export const COLOR_LISTS = [
   '#3986fe', // blue
   '#f26279', // pink
   '#f9d237', // yellow
@@ -30,7 +30,7 @@ export const colorLists = [
   '#9cd88a', // grassgreen
 ];
 
-export const tagColors = [
+export const TAG_COLORS = [
   'magenta',
   'red',
   'volcano',
@@ -42,4 +42,38 @@ export const tagColors = [
   'blue',
   'geekblue',
   'purple',
+];
+
+export const BASIC_CATEGORY = [
+  'react',
+  '浏览器',
+  '包管理工具',
+  'javaScript',
+  'css',
+  'git',
+  '奇技淫巧',
+  'antd',
+  'typeScript',
+  '生活感想',
+  '优秀的工具(库)',
+  '其他',
+];
+
+export const BASIC_LABEL = [
+  '浏览器',
+  'npm',
+  'bin',
+  'npx',
+  'javaScript',
+  'css',
+  'git',
+  'react',
+  'ahooks',
+  'es6',
+  'antd',
+  'typeScript',
+  'node',
+  'nvm',
+  'echarts',
+  'html2canvas',
 ];

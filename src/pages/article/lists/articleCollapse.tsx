@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { EyeOutlined } from '@ant-design/icons';
-import { colorLists, tagColors } from '@/constants';
+import { COLOR_LISTS, TAG_COLORS } from '@/constants';
 import { ARTICLE_DETAIL } from '@/constants/url';
 
 const { Panel } = Collapse;
@@ -48,7 +48,7 @@ const ArticleCollapse: FC<{
         <Panel header={category} key={category}>
           {articles.map(
             ({ title, category, _id, readCount, labels, createdAt }) => (
-              <Badge.Ribbon text={category} key={_id} color={colorLists[i]}>
+              <Badge.Ribbon text={category} key={_id} color={COLOR_LISTS[i]}>
                 <MyCard
                   hoverable
                   title={title}
@@ -67,8 +67,8 @@ const ArticleCollapse: FC<{
                             <Tag
                               key={i}
                               color={
-                                tagColors[
-                                  Math.floor(Math.random() * tagColors.length)
+                                TAG_COLORS[
+                                  Math.floor(Math.random() * TAG_COLORS.length)
                                 ]
                               }
                             >

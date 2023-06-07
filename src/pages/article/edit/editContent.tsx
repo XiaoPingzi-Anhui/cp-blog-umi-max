@@ -23,7 +23,7 @@ const EditorContent = ({ value, onChange }: Props) => {
   return (
     <MdEditor
       value={text}
-      style={{ height: '50vh' }}
+      style={{ height: '65vh' }}
       renderHTML={(text) => <ShowMarkDown markDownText={text} />}
       onChange={handleEditorChange}
     />

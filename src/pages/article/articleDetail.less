@@ -1,6 +1,34 @@
+.detail-page-container {
+  .ant-page-header-heading,
+  .ant-page-header-heading-left,
+  .ant-page-header-heading-title {
+    width: 100%;
+  }
+  .ant-page-header {
+    padding-bottom: 0;
+  }
+}
+
 .detail-header {
+  width: 100%;
   display: 'flex';
   justify-content: 'center';
   align-items: 'center';
   flex-direction: 'column';
+  .ant-divider {
+    margin: 16px 0 0;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0 0;
+  }
+  span {
+    font-size: 14px;
+    color: #888;
+  }
+  span:not(:first-of-type),
+  a {
+    font-size: 14px;
+    margin-left: 24px;
+  }
 }

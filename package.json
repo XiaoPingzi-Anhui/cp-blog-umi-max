@@ -40,6 +40,7 @@
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.0",
     "@types/react-syntax-highlighter": "^15.5.4",
+    "@types/shortid": "^0.0.29",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",

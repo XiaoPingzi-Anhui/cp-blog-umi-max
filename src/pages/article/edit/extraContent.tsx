@@ -1,15 +1,28 @@
-import { FC } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 import { Space } from 'antd';
 import CheckedTags from '@/components/checkedTags';
+import { BASIC_CATEGORY, BASIC_LABEL } from '@/constants';
 
-const ExtraContent: FC = ({}) => {
+interface ExtraContentProps {
+  defaultLabels: string[];
+  onLabelsChange: Dispatch<SetStateAction<string[]>>;
+  defaultCategory: string[];
+  onCategoryChange: Dispatch<SetStateAction<string[]>>;
+}
+
+const ExtraContent: FC<ExtraContentProps> = ({
+  defaultLabels,
+  onLabelsChange,
+  defaultCategory,
+  onCategoryChange,
+}) => {
   return (
     <>
       <Space align="start">
         <label>分类：</label>
         <CheckedTags
-          initTags={['1222', '122', 'aaa']}
-          defaultChecked={[]}
+          initTags={BASIC_CATEGORY}
+          defaultChecked={defaultLabels}
           onCheckedChange={() => {}}
         />
       </Space>
@@ -17,8 +30,8 @@ const ExtraContent: FC = ({}) => {
       <Space align="start">
         <label>标签：</label>
         <CheckedTags
-          initTags={['1222', '122', 'aaa']}
-          defaultChecked={[]}
+          initTags={BASIC_LABEL}
+          defaultChecked={defaultCategory}
           onCheckedChange={() => {}}
         />
       </Space>

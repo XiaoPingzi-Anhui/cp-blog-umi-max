@@ -1,5 +1,6 @@
 import { useRef, ReactElement } from 'react';
 import { useOutlet, useLocation, matchPath } from 'react-router-dom';
+import { NO_KEEPALIVE_URL } from '@/constants/url';
 
 const Layout = () => {
   const location = useLocation();
@@ -9,7 +10,9 @@ const Layout = () => {
   /* 因为本项目 '/' 有重定向到 '/home', 不将之前的 '/' 删除，会导致 '/' 一直重复渲染重定向 */
   if (keepElements.current['/']) delete keepElements.current['/'];
 
-  keepElements.current[location.pathname] = element;
+  if (!NO_KEEPALIVE_URL.includes(location.pathname))
+    keepElements.current[location.pathname] = element;
+  else return element;
 
   return (
     <>

@@ -21,7 +21,7 @@ export enum FilterWay {
 
 const FilterContent = styled.div`
   padding: 10px 0;
-  height: 56px;
+  white-space: normal;
   .ant-tag {
     margin-bottom: 6px;
   }
