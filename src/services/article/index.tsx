@@ -31,3 +31,8 @@ export const updateArticleById = (params: Partial<API.ArticleInfo>) =>
     method: 'POST',
     data: params,
   });
+
+export const deleteArticleById = (id: string) =>
+  request(`${REQ_BASE_URL}/deleteArticleById/${id}`, {
+    method: 'DELETE',
+  });

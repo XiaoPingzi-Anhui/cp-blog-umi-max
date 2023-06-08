@@ -3,7 +3,7 @@ import { Skeleton } from 'antd';
 import { PageContainer } from '@ant-design/pro-components';
 import useArticleLists from '../hooks/useArticleLists';
 import ArticleCollapse from './articleCollapse';
-import RightCard from './rightCard/filter';
+import Filter from './filter/filter';
 
 const MySkeleton = styled(Skeleton)`
   padding: 40px;
@@ -15,7 +15,7 @@ export default function ArticleLists() {
   return (
     <PageContainer
       header={{
-        title: <RightCard />,
+        title: <Filter />,
       }}
       loading={
         loading && (

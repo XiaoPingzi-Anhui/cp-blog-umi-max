@@ -1,9 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, FC } from 'react';
 import styled from 'styled-components';
-import { FC } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { InputRef, message } from 'antd';
-import { Input, Tag, theme } from 'antd';
+import { InputRef, message, Input, Tag, theme } from 'antd';
 import { TweenOneGroup } from 'rc-tween-one';
 import { useMemoizedFn, useBoolean } from 'ahooks';
 
@@ -16,12 +14,14 @@ const MyCheckableTag = styled(CheckableTag)`
 export interface CheckedTagsProps {
   initTags?: string[];
   defaultChecked?: string[];
+  single?: boolean;
   onCheckedChange?: (checkedTags: string[]) => void;
 }
 
 const CheckedTags: FC<CheckedTagsProps> = ({
   initTags = [],
   defaultChecked = [],
+  single = false,
   onCheckedChange,
 }) => {
   const { token } = theme.useToken();
@@ -40,8 +40,12 @@ const CheckedTags: FC<CheckedTagsProps> = ({
   }, [onCheckedChange, checkedTags]);
 
   const handleCheck = useMemoizedFn((changeTag, checked) => {
-    if (checked) setCheckedTags([...checkedTags, changeTag]);
-    else setCheckedTags(checkedTags.filter((tag) => tag !== changeTag));
+    if (single) {
+      setCheckedTags(checked ? [changeTag] : []);
+    } else {
+      if (checked) setCheckedTags([...checkedTags, changeTag]);
+      else setCheckedTags(checkedTags.filter((tag) => tag !== changeTag));
+    }
   });
 
   const handleInputChange = useMemoizedFn(
@@ -57,41 +61,46 @@ const CheckedTags: FC<CheckedTagsProps> = ({
     setInputValue('');
   });
 
-  const tagPlusStyle = {
-    background: token.colorBgContainer,
-    borderStyle: 'dashed',
-  };
+  const tagPlusStyle = useMemo(
+    () => ({
+      background: token.colorBgContainer,
+      borderStyle: 'dashed',
+      height: '22px',
+    }),
+    [token.colorBgContainer],
+  );
 
   return (
     <>
-      <div style={{ marginBottom: 16 }}>
-        <TweenOneGroup
-          enter={{
-            scale: 0.8,
-            opacity: 0,
-            type: 'from',
-            duration: 100,
-          }}
-          onEnd={(e) => {
-            if (e.type === 'appear' || e.type === 'enter') {
-              (e.target as any).style = 'display: inline-block';
-            }
-          }}
-          leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
-          appear={false}
-        >
-          {tags.map((tag: string) => (
-            <span key={tag} style={{ display: 'inline-block' }}>
-              <MyCheckableTag
-                checked={checkedTags.includes(tag)}
-                onChange={(checked) => handleCheck(tag, checked)}
-              >
-                {tag}
-              </MyCheckableTag>
-            </span>
-          ))}
-        </TweenOneGroup>
-      </div>
+      <TweenOneGroup
+        enter={{
+          scale: 0.8,
+          opacity: 0,
+          type: 'from',
+          duration: 100,
+        }}
+        onEnd={(e) => {
+          if (e.type === 'appear' || e.type === 'enter') {
+            (e.target as any).style = 'display: inline-block';
+          }
+        }}
+        leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
+        appear={false}
+      >
+        {tags.map((tag: string) => (
+          <span
+            key={tag}
+            style={{ display: 'inline-block', marginBottom: '10px' }}
+          >
+            <MyCheckableTag
+              checked={checkedTags.includes(tag)}
+              onChange={(checked) => handleCheck(tag, checked)}
+            >
+              {tag}
+            </MyCheckableTag>
+          </span>
+        ))}
+      </TweenOneGroup>
 
       {inputVisible ? (
         <Input

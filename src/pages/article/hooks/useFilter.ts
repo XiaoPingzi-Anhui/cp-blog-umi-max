@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useModel } from '@umijs/max';
-import { FilterWay } from '../lists/rightCard/filter';
+import { FilterWay } from '../lists/filter/filter';
 import { ArticleListsType } from './useArticleLists';
 
 interface Props {

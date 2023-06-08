@@ -8,7 +8,6 @@ export default function ArticleModel() {
   const [searchArticles, setSearchArticles] = useState<ArticlesObj>({});
   const [allLabels, setAllLabels] = useState<string[]>([]);
   const [allCategories, setAllCategories] = useState<string[]>([]);
-  const [test, setTest] = useState(1);
 
   return {
     allArticles,
@@ -21,7 +20,5 @@ export default function ArticleModel() {
     setSearchArticles,
     setAllLabels,
     setAllCategories,
-    test,
-    setTest,
   };
 }

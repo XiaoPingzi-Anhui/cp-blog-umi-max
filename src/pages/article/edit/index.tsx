@@ -1,22 +1,28 @@
-import { memo, useEffect, useState } from 'react';
-import { useLocation, useModel } from '@umijs/max';
+import { memo, useEffect, useState, useMemo } from 'react';
+import { useLocation, useModel, history } from '@umijs/max';
 import { useMemoizedFn, useRequest } from 'ahooks';
-import { Button, message, Input } from 'antd';
+import { Button, message, Input, Switch } from 'antd';
 import { PageContainer } from '@ant-design/pro-components';
 import shortid from 'shortid';
+import CheckedTags from '@/components/checkedTags';
+import { BASIC_CATEGORY, BASIC_LABEL } from '@/constants';
 
 import EditContent from './editContent';
-import ExtraContent from './extraContent';
 import usePageActive from '@/utils/hooks/usePageActive';
-import { ARTICLE_EDIT } from '@/constants/url';
+import { ARTICLE_EDIT, ARTICLE_DETAIL } from '@/constants/url';
 import { addNewArticle, updateArticleById } from '@/services/article';
+import './articleEdit.less';
 
 const MarkDownEditor = () => {
   const { state } = useLocation();
   const { initialState } = useModel('@@initialState');
-  const modal = useModel('article.model');
-
-  console.log('modal:', modal);
+  const { allLabels, allCategories } = useModel(
+    'article.model',
+    ({ allLabels, allCategories }) => ({
+      allLabels,
+      allCategories,
+    }),
+  );
 
   const pageVisible = usePageActive(ARTICLE_EDIT);
 
@@ -28,24 +34,43 @@ const MarkDownEditor = () => {
     labels,
     title,
     readCount,
+    ownSee: defaultOwnSee,
     _id,
   } = (state as API.ArticleInfo) || {};
-  useEffect(() => console.log('state:', state), [state]);
+
+  const defaultLabels = useMemo(() => labels?.split(',') || [], [labels]);
+  const defaultCategory = useMemo(() => category?.split(',') || [], [category]);
 
   const [text, setText] = useState(content || '');
   const [articleTitle, setArticleTitle] = useState(title || '');
-  const [curLabels, setCurLabels] = useState(labels?.split(',') || []);
-  const [curCategory, setCurCategory] = useState(category?.split(',') || []);
+  const [curLabels, setCurLabels] = useState(defaultLabels);
+  const [curCategory, setCurCategory] = useState(defaultCategory);
   const [extraContentKey, setExtraContentKey] = useState(shortid.generate());
+  const [ownSee, setOwnSee] = useState(!!defaultOwnSee);
+
+  const initLabels = useMemo(
+    () =>
+      allLabels.length
+        ? allLabels
+        : Array.from(new Set([...BASIC_LABEL, ...defaultLabels])),
+    [allLabels],
+  );
+
+  const initCategory = useMemo(
+    () =>
+      allCategories.length
+        ? allCategories
+        : Array.from(new Set([...BASIC_CATEGORY, ...defaultCategory])),
+    [allCategories],
+  );
 
   const { loading, run } = useRequest(
     state ? updateArticleById : addNewArticle,
     {
       manual: true,
       onSuccess: (data) => {
-        console.log('data:', data);
-        /* refresh();
-        history.push(HOME_LINK); */
+        const id = data?.data?._id || _id;
+        id && history.push(`${ARTICLE_DETAIL}/${id}`);
       },
       onError: (e: any) => {
         message.error(e?.response?.data?.message || e.toString());
@@ -58,26 +83,32 @@ const MarkDownEditor = () => {
   const onReset = useMemoizedFn(() => {
     setText(content || '');
     setArticleTitle(title || '');
-    setCurLabels(labels?.split(',') || []);
-    setCurCategory(category?.split(',') || []);
+    setCurLabels(defaultLabels);
+    setCurCategory(defaultCategory);
+    setOwnSee(!!defaultOwnSee);
     setExtraContentKey(shortid.generate());
   });
 
   const onSubmit = useMemoizedFn(() => {
-    const params = {
-      authorName: authorName ?? initialState?.userInfo?.username,
-      authorId: authorId ?? initialState?.userInfo?._id,
-      title: articleTitle,
-      content: text,
-      labels: curLabels.join(','),
-      category: curCategory.join(','),
-      readCount,
-      articleId: _id,
-    };
-    run(params);
+    if (curLabels.length && curCategory.length) {
+      const params = {
+        authorName: authorName ?? initialState?.userInfo?.username,
+        authorId: authorId ?? initialState?.userInfo?._id,
+        title: articleTitle,
+        content: text,
+        labels: curLabels.join(','),
+        category: curCategory.join(','),
+        readCount,
+        articleId: _id,
+        ownSee: ownSee,
+      };
+      run(params);
+    } else message.warning('请给文章添加分类和标签！');
   });
 
-  useEffect(() => console.log('text:', text), [text]);
+  const onTitleChange = useMemoizedFn((e) =>
+    setArticleTitle(e?.target?.value || ''),
+  );
 
   return (
     <PageContainer
@@ -89,7 +120,7 @@ const MarkDownEditor = () => {
             value={articleTitle}
             showCount
             maxLength={20}
-            onChange={(e) => setArticleTitle(e?.target?.value || '')}
+            onChange={onTitleChange}
           />
         ),
       }}
@@ -99,7 +130,13 @@ const MarkDownEditor = () => {
               <Button key="3" onClick={onReset}>
                 重置
               </Button>,
-              <Button key="2" type="primary" onClick={onSubmit}>
+              <Button
+                disabled={loading}
+                loading={loading}
+                key="2"
+                type="primary"
+                onClick={onSubmit}
+              >
                 提交
               </Button>,
             ]
@@ -107,13 +144,31 @@ const MarkDownEditor = () => {
       }
     >
       <EditContent value={text} onChange={onTextChange} />
-      <ExtraContent
-        key={extraContentKey}
-        defaultLabels={curLabels}
-        onLabelsChange={setCurLabels}
-        defaultCategory={curCategory}
-        onCategoryChange={setCurCategory}
-      />
+      <div key={extraContentKey}>
+        <div className="checked-tags-container">
+          <label className="checked-tags-label">分类：</label>
+          <CheckedTags
+            initTags={initCategory}
+            defaultChecked={defaultCategory}
+            onCheckedChange={setCurCategory}
+            single
+          />
+        </div>
+
+        <div className="checked-tags-container">
+          <label className="checked-tags-label">标签：</label>
+          <CheckedTags
+            initTags={initLabels}
+            defaultChecked={defaultLabels}
+            onCheckedChange={setCurLabels}
+          />
+        </div>
+
+        <div>
+          <label className="checked-tags-label">仅自己可见：</label>
+          <Switch size="small" defaultChecked={ownSee} onChange={setOwnSee} />
+        </div>
+      </div>
     </PageContainer>
   );
 };

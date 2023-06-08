@@ -47,6 +47,7 @@ declare namespace API {
     authorName?: string;
     content?: string;
     likeStar?: number;
+    ownSee?: boolean;
   }
 
   interface UserInfo {
