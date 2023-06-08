@@ -1,5 +1,6 @@
-import { useState, useEffect, FC, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useModel } from '@umijs/max';
 import { useMemoizedFn, useDebounceFn } from 'ahooks';
 import { Segmented, Tag } from 'antd';
 import categoryPgn from '@/assets/images/category.png';
@@ -7,11 +8,6 @@ import labelPng from '@/assets/images/label.png';
 import searchPng from '@/assets/images/search.png';
 import useFilter from '../../hooks/useFilter';
 import Search from './search';
-
-import {
-  ArticleInfosType,
-  ArticleListsType,
-} from '../../hooks/useArticleLists';
 
 export enum FilterWay {
   Category = '按分类筛选',
@@ -35,31 +31,27 @@ const FilterContent = styled.div`
 
 const { CheckableTag } = Tag;
 
-interface FilterProps extends ArticleInfosType {
-  setFilterArticles: Dispatch<SetStateAction<ArticleListsType>>;
-}
+const Filter = () => {
+  const { allArticles, allCategories, allLabels, setFilterArticles } = useModel(
+    'article.model',
+    ({ allArticles, allCategories, allLabels, setFilterArticles }) => ({
+      allArticles,
+      allCategories,
+      allLabels,
+      setFilterArticles,
+    }),
+  );
 
-const Filter: FC<FilterProps> = ({
-  articleLists,
-  allCategories,
-  allLabels,
-  setFilterArticles,
-}) => {
   const [segmentValue, setSegmentValue] = useState(FilterWay.Category);
   const [checkedCategory, setCheckedCategory] = useState(allCategories);
   const [checkedLabel, setCheckedLabel] = useState(allLabels);
   const [searchKey, setSearchKey] = useState('');
-  const [searchArticles, setSearchArticles] =
-    useState<ArticleListsType>(articleLists);
 
   useFilter({
     checkedCategory,
     checkedLabel,
     titleKey: searchKey,
     type: segmentValue,
-    articleLists,
-    setFilterArticles,
-    setSearchArticles,
   });
 
   useEffect(() => {
@@ -128,17 +120,12 @@ const Filter: FC<FilterProps> = ({
         defaultValue={segmentValue}
         onChange={(value) => {
           setSegmentValue(value as FilterWay);
-          setFilterArticles(articleLists);
+          setFilterArticles(allArticles);
         }}
       />
       {segmentValue === FilterWay.Title ? (
         <FilterContent>
-          <Search
-            onChange={onChange}
-            searchKey={searchKey}
-            articleLists={searchArticles}
-            setFilterArticles={setFilterArticles}
-          />
+          <Search onChange={onChange} searchKey={searchKey} />
         </FilterContent>
       ) : (
         <FilterContent>{selectTags(segmentValue)}</FilterContent>

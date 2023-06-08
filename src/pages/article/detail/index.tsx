@@ -6,7 +6,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import ShowMarkDown from '@/components/markdown/showMarkDown';
 import { ARTICLE_EDIT } from '@/constants/url';
 import { Authority } from '@/constants';
-import useArticleDetail from './hooks/useArticleDetail';
+import useArticleDetail from '../hooks/useArticleDetail';
 import './articleDetail.less';
 
 const ArticleDetail = () => {

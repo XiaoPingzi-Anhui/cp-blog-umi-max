@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useModel } from '@umijs/max';
 import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
 import { getAllArticles } from '@/services/article';
@@ -12,11 +12,21 @@ export interface ArticleInfosType {
 }
 
 export default function useArticleLists() {
-  const [articleInfos, setArticleInfos] = useState<ArticleInfosType>({
-    articleLists: {},
-    allCategories: [],
-    allLabels: [],
-  });
+  const { setAllArticles, setFilterArticles, setAllLabels, setAllCategories } =
+    useModel(
+      'article.model',
+      ({
+        setAllArticles,
+        setFilterArticles,
+        setAllLabels,
+        setAllCategories,
+      }) => ({
+        setAllArticles,
+        setFilterArticles,
+        setAllLabels,
+        setAllCategories,
+      }),
+    );
 
   const { error, loading } = useRequest(getAllArticles, {
     onSuccess: (data) => {
@@ -35,14 +45,13 @@ export default function useArticleLists() {
             return pre;
           }, {} as ArticleListsType);
 
-        setArticleInfos({
-          articleLists,
-          allCategories: Object.keys(articleLists),
-          allLabels: Array.from(new Set(allLabels)),
-        });
+        setAllArticles(articleLists);
+        setFilterArticles(articleLists);
+        setAllCategories(Object.keys(articleLists));
+        setAllLabels(Array.from(new Set(allLabels)));
       }
     },
   });
 
-  return { articleInfos, loading, error };
+  return { loading, error };
 }

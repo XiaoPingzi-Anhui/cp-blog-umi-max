@@ -1,4 +1,5 @@
-import { useMemo, FC } from 'react';
+import { useMemo } from 'react';
+import { useModel } from '@umijs/max';
 import { Collapse, Badge, Card, Tag, Col, Row } from 'antd';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
@@ -29,10 +30,12 @@ const MyCollapse = styled(Collapse)`
   }
 `;
 
-const ArticleCollapse: FC<{
-  filterArticles: Record<string, API.ArticleInfo[]>;
-}> = ({ filterArticles }) => {
+const ArticleCollapse = () => {
   const navigate = useNavigate();
+  const filterArticles = useModel(
+    'article.model',
+    ({ filterArticles }) => filterArticles,
+  );
 
   const articleAry = useMemo(
     () =>

@@ -1,9 +1,9 @@
-import { useMemo, Dispatch, SetStateAction } from 'react';
+import { useMemo } from 'react';
 import styled from 'styled-components';
+import { useModel } from '@umijs/max';
 import { useMemoizedFn } from 'ahooks';
 import { AutoComplete, Input, Empty } from 'antd';
 import searchPng from '@/assets/images/search.png';
-import { ArticleListsType } from '../../hooks/useArticleLists';
 
 const ListItem = styled.div`
   display: flex;
@@ -28,16 +28,20 @@ const MyInput = styled(Input)`
 export default function Search({
   onChange,
   searchKey,
-  articleLists,
-  setFilterArticles,
 }: {
   onChange: (value: string) => void;
   searchKey: string;
-  articleLists: ArticleListsType;
-  setFilterArticles: Dispatch<SetStateAction<ArticleListsType>>;
 }) {
+  const { searchArticles, setFilterArticles } = useModel(
+    'article.model',
+    ({ searchArticles, setFilterArticles }) => ({
+      searchArticles,
+      setFilterArticles,
+    }),
+  );
+
   const options = useMemo(() => {
-    const articleAry = Object.entries(articleLists);
+    const articleAry = Object.entries(searchArticles);
     const articleCount = articleAry.reduce(
       (pre, cur) => pre + cur[1].length,
       0,
@@ -47,7 +51,7 @@ export default function Search({
           {
             value: `${searchKey}(查看所有结果)`,
             key: 'allOrEmpty',
-            checkedArticle: articleLists,
+            checkedArticle: searchArticles,
             label:
               articleAry.length === 0 ? (
                 <Empty />
@@ -75,7 +79,7 @@ export default function Search({
           })),
         )
       : [];
-  }, [articleLists, searchKey]);
+  }, [searchArticles, searchKey]);
 
   const onSelect = useMemoizedFn((value, option) => {
     setFilterArticles(option.checkedArticle);

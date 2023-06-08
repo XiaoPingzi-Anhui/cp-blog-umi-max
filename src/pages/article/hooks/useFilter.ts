@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useModel } from '@umijs/max';
 import { FilterWay } from '../lists/rightCard/filter';
 import { ArticleListsType } from './useArticleLists';
 
@@ -11,9 +12,6 @@ interface Props {
   titleKey: string;
   /** 筛选的分类 */
   type: FilterWay;
-  articleLists: ArticleListsType;
-  setFilterArticles: Dispatch<SetStateAction<ArticleListsType>>;
-  setSearchArticles: Dispatch<SetStateAction<ArticleListsType>>;
 }
 
 export default function useFilter({
@@ -21,10 +19,16 @@ export default function useFilter({
   checkedLabel,
   titleKey,
   type,
-  articleLists,
-  setFilterArticles,
-  setSearchArticles,
 }: Props) {
+  const { allArticles, setSearchArticles, setFilterArticles } = useModel(
+    'article.model',
+    ({ allArticles, setSearchArticles, setFilterArticles }) => ({
+      allArticles,
+      setSearchArticles,
+      setFilterArticles,
+    }),
+  );
+
   useEffect(() => {
     const getCategory = (lists: any[]) =>
       lists.reduce((pre, cur) => {
@@ -34,7 +38,7 @@ export default function useFilter({
         return pre;
       }, {} as ArticleListsType);
 
-    const articles = Object.values(articleLists).flat();
+    const articles = Object.values(allArticles).flat();
     switch (type) {
       case FilterWay.Category:
         setFilterArticles(
