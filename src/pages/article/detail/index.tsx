@@ -30,7 +30,7 @@ const ArticleDetail = () => {
   const { run } = useRequest(deleteArticleById, {
     manual: true,
     onSuccess: (data) => {
-      history.replace(ARTICLE_LISTS);
+      history.push(ARTICLE_LISTS, { refresh: true });
     },
     onError: (e: any) => {
       message.error(e?.response?.data?.message || e.toString());

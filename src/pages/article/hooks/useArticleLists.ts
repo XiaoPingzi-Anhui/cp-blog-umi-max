@@ -1,4 +1,4 @@
-import { useModel } from '@umijs/max';
+import { useModel, useLocation } from '@umijs/max';
 import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
 import { getAllArticles } from '@/services/article';
@@ -12,6 +12,7 @@ export interface ArticleInfosType {
 }
 
 export default function useArticleLists() {
+  const { state } = useLocation();
   const { setAllArticles, setFilterArticles, setAllLabels, setAllCategories } =
     useModel(
       'article.model',
@@ -29,6 +30,7 @@ export default function useArticleLists() {
     );
 
   const { error, loading } = useRequest(getAllArticles, {
+    refreshDeps: [(state as any)?.refresh],
     onSuccess: (data) => {
       if (data?.data) {
         let allLabels: string[] = [];
@@ -47,8 +49,14 @@ export default function useArticleLists() {
 
         setAllArticles(articleLists);
         setFilterArticles(articleLists);
-        setAllCategories(Object.keys(articleLists));
-        setAllLabels(Array.from(new Set(allLabels)));
+        setAllCategories(
+          Object.keys(articleLists).sort((a, b) => b.localeCompare(a, 'zh')),
+        );
+        setAllLabels(
+          Array.from(new Set(allLabels)).sort((a, b) =>
+            b.localeCompare(a, 'zh'),
+          ),
+        );
       }
     },
   });

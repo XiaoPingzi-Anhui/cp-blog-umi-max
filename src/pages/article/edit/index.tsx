@@ -1,4 +1,4 @@
-import { memo, useEffect, useState, useMemo } from 'react';
+import { memo, useState, useMemo } from 'react';
 import { useLocation, useModel, history } from '@umijs/max';
 import { useMemoizedFn, useRequest } from 'ahooks';
 import { Button, message, Input, Switch } from 'antd';

@@ -6,6 +6,7 @@ import logoSvg from '@/assets/images/logo.svg';
 import { verifyToken } from '@/utils/jwt';
 import { ACCESS_TOKEN } from '@/constants';
 import { LOGIN_LINK } from '@/constants/url';
+import HeaderRight from './pages/user/headerRight';
 
 /* 全局初始化数据配置，用于 Layout 用户信息和权限初始化 */
 export async function getInitialState(): Promise<InitialState> {
@@ -45,11 +46,11 @@ export const request: RequestConfig = {
 
 /* 运行时配置 */
 
-export const layout: RunTimeLayoutConfig = (initialData) => {
+export const layout: RunTimeLayoutConfig = () => {
   return {
     logo: logoSvg,
     title: '菜狗搬砖小站',
-    // rightContentRender: () => <div> rightContentRender</div>,
+    rightContentRender: () => <HeaderRight />,
     onPageChange: async () => {
       try {
         await verifyToken(Cookies.get(ACCESS_TOKEN)!);

@@ -32,18 +32,8 @@ const AccessPage: React.FC = () => {
       const resData = await res.json();
       console.log('resData:', resData);
       setUserName(resData.username ?? '修改了');
-      // const data = await res.json();
-
-      /* if (res.status !== 200) {
-        console.error(await res.text());
-        return;
-      }
-      const data = await res.json();
-      alert(`欢迎回来，${data.name}`);
-      history.push("/posts/create"); */
     } catch (err) {
       console.error(err);
-      /*  setUserName('chucuola'); */
     }
   }
   return (
