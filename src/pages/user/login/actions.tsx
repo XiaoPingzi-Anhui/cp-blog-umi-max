@@ -16,7 +16,7 @@ export default function Actions() {
         </span>
       </Divider>
 
-      <Space /* size={24} */>
+      <div className={S.flex}>
         {showList.map((item, i) => (
           <Popover
             key={i}
@@ -44,7 +44,7 @@ export default function Actions() {
             )}
           </Popover>
         ))}
-      </Space>
+      </div>
     </div>
   );
 }

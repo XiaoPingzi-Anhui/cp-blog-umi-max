@@ -78,8 +78,6 @@ const MarkDownEditor = () => {
     },
   );
 
-  const onTextChange = useMemoizedFn((t) => setText(t));
-
   const onReset = useMemoizedFn(() => {
     setText(content || '');
     setArticleTitle(title || '');
@@ -143,7 +141,7 @@ const MarkDownEditor = () => {
           : undefined
       }
     >
-      <EditContent value={text} onChange={onTextChange} />
+      <EditContent value={text} onChange={setText} />
       <div key={extraContentKey}>
         <div className="checked-tags-container">
           <label className="checked-tags-label">分类：</label>
