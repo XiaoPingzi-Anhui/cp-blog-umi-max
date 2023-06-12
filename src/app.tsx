@@ -59,10 +59,6 @@ export const layout: RunTimeLayoutConfig = () => {
         history.push(LOGIN_LINK);
       }
     },
-    logout: () => {
-      Cookies.remove(ACCESS_TOKEN);
-      history.push(LOGIN_LINK);
-    },
     fixSiderbar: true,
     navTheme: 'light',
     layout: 'mix',

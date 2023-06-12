@@ -22,14 +22,10 @@ const MarkDownEditor = ({ value, onChange }: Props) => {
 
   const handleEditorChange = useMemoizedFn(
     ({ text }: { html: string; text: string }) => {
-      console.log('handleEditorChange', text);
       setText(text);
       setState(text);
     },
   );
-
-  useEffect(() => console.log('text:', text), [text]);
-  useEffect(() => console.log('state:', state), [state]);
 
   return (
     <MdEditor

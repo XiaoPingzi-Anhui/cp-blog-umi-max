@@ -6,7 +6,7 @@ export const TOKEN_VALIDITY_PERIOD = 60 * 60 * 24 * 30;
 export enum Authority {
   WEBMASTER = '站长',
   ADMINISTRATOR = '管理员',
-  GENERAL_REGISTERED_USER = '普通注册用户',
+  GENERAL_REGISTERED_USER = '普通用户',
   TOURIST = '游客',
 }
 

@@ -69,9 +69,10 @@ export default () => {
         password: bcrypt.hashSync(password, 10),
         phoneNumber,
         username,
-        authority: Authority.TOURIST,
+        authority: Authority.GENERAL_REGISTERED_USER,
         personalSignature: '随便瞅瞅的路人甲',
-        avatarUrl: '',
+        avatarUrl:
+          'https://tse1-mm.cn.bing.net/th/id/OIP-C.8eGK1IQGF9Z0onAVlGIKtQAAAA?w=168&h=180&c=7&r=0&o=5&pid=1.7',
         sex: '',
       });
     }
