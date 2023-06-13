@@ -1,19 +1,18 @@
-import { useState } from "react";
-import { useMount } from "ahooks";
-import styled from "styled-components";
-
-const getPoem = require("jinrishici");
+import { useState } from 'react';
+import { useMount } from 'ahooks';
+import styled from 'styled-components';
+import { load } from 'jinrishici';
 
 export default function TodayPoetry() {
-  const [poem, setPoem] = useState("");
+  const [poem, setPoem] = useState('');
 
   useMount(() => {
-    getPoem.load(
+    load(
       (res: {
         data: {
           content: string;
         };
-      }) => setPoem(res.data.content)
+      }) => setPoem(res.data.content),
     );
   });
 
@@ -21,8 +20,8 @@ export default function TodayPoetry() {
 }
 
 export const PoemWrapper = styled.div`
-  position: absolute;
-  top: 50%;
+  /* position: absolute;
+  top: 50%; */
   width: 100%;
   font-size: 40px;
   font-family: PingFangSC, PingFangSC-Regular;

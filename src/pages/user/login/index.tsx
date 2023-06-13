@@ -120,7 +120,7 @@ export default () => {
         title="菜狗搬砖"
         subTitle="一只前端菜狗的博客网站"
         activityConfig={activityConfig}
-        actions={<Action />}
+        // actions={<Action />}
         onFinish={onFinish}
         submitter={submitter}
       >

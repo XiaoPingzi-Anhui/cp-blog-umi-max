@@ -1,31 +1,35 @@
-import { useState } from 'react';
-import Guide from '@/components/Guide';
-import { trim } from '@/utils/format';
-import { useRequest } from 'ahooks';
-import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import styles from './index.less';
-import { getAllUsers } from '@/services/user';
+import { useRef, useMemo } from 'react';
+import { styled } from '@umijs/max';
+import { min } from 'lodash';
+import { useSize } from 'ahooks';
+import RomanClock from './clock/romanClock';
 
-const HomePage: React.FC = () => {
-  const { name } = useModel('global');
-  const [a, setA] = useState(1);
-  const { loading, run } = useRequest(getAllUsers, { manual: true });
+export default function Home() {
+  const wrapperRef = useRef(null);
+  const { height, width } = useSize(wrapperRef) || { height: 0, width: 0 };
+
+  const size = useMemo(() => {
+    const minSize = min([height, width]) ?? 0;
+    return minSize < 800 ? 800 : minSize;
+  }, [height, width]);
 
   return (
-    <PageContainer ghost>
-      <div
-        className={styles.container}
-        onClick={() => {
-          setA(a + 1);
-          run();
-        }}
-      >
-        {a}
-        <Guide name={trim(name)} />
-      </div>
-    </PageContainer>
+    <HomeWrapper ref={wrapperRef}>
+      <RomanClock
+        size={size}
+        backgroundColor="transparent"
+        highlightColor="#000"
+      />
+    </HomeWrapper>
   );
-};
+}
 
-export default HomePage;
+// const TopBackground = styled.div`
+//   background: url(https://picsum.photos/1920/1280) center/cover;
+//   height: calc(100vh - 56px);
+// `;
+
+const HomeWrapper = styled.div`
+  width: 100%;
+  height: calc(100vh - 56px - 48px);
+`;

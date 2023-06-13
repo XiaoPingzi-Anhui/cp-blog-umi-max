@@ -1,6 +1,7 @@
 import { useRef, ReactElement } from 'react';
 import { useOutlet, useLocation, matchPath } from 'react-router-dom';
 import { NO_KEEPALIVE_URL } from '@/constants/url';
+import Global from '@/global';
 
 const Layout = () => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const Layout = () => {
           {children}
         </div>
       ))}
+      <Global />
     </>
   );
 };
