@@ -43,7 +43,8 @@ export default function ContactWebmaster() {
   return (
     <FloatButton.Group
       className={S['float-button-group']}
-      trigger="click"
+      trigger="hover"
+      shape="square"
       description="联系站长"
       icon={null}
       style={{ bottom: 96 }}
