@@ -10,26 +10,6 @@ import { ARTICLE_DETAIL } from '@/constants/url';
 
 const { Panel } = Collapse;
 
-const MyCard = styled(Card)`
-  .ant-card-head-title {
-    font-size: larger;
-  }
-  svg {
-    margin-right: 12px;
-  }
-`;
-
-const MyCollapse = styled(Collapse)`
-  .ant-collapse-header {
-    font-size: large;
-  }
-  .ant-collapse-content-box {
-    > div:nth-of-type(n + 2) {
-      margin-top: 16px;
-    }
-  }
-`;
-
 const ArticleCollapse = () => {
   const navigate = useNavigate();
   const filterArticles = useModel(
@@ -97,3 +77,23 @@ const ArticleCollapse = () => {
 };
 
 export default ArticleCollapse;
+
+const MyCard = styled(Card)`
+  .ant-card-head-title {
+    font-size: larger;
+  }
+  svg {
+    margin-right: 12px;
+  }
+`;
+
+const MyCollapse = styled(Collapse)`
+  .ant-collapse-header {
+    font-size: large;
+  }
+  .ant-collapse-content-box {
+    > div:nth-of-type(n + 2) {
+      margin-top: 16px;
+    }
+  }
+`;

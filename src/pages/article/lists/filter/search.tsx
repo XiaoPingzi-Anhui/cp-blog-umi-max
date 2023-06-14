@@ -5,26 +5,6 @@ import { useMemoizedFn } from 'ahooks';
 import { AutoComplete, Input, Empty } from 'antd';
 import searchPng from '@/assets/images/search.png';
 
-const ListItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  line-height: 24px;
-  .count-text {
-    color: #0171f6;
-  }
-  .highlight-text {
-    color: #fe3a2f;
-  }
-  p {
-    margin-bottom: 0;
-    line-height: 24px;
-  }
-`;
-
-const MyInput = styled(Input)`
-  box-shadow: none !important;
-`;
-
 export default function Search({
   onChange,
   searchKey,
@@ -103,3 +83,23 @@ export default function Search({
     </AutoComplete>
   );
 }
+
+const ListItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  line-height: 24px;
+  .count-text {
+    color: #0171f6;
+  }
+  .highlight-text {
+    color: #fe3a2f;
+  }
+  p {
+    margin-bottom: 0;
+    line-height: 24px;
+  }
+`;
+
+const MyInput = styled(Input)`
+  box-shadow: none !important;
+`;

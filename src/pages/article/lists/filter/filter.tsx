@@ -15,20 +15,6 @@ export enum FilterWay {
   Title = '按标题搜索',
 }
 
-const FilterContent = styled.div`
-  padding: 10px 0;
-  white-space: normal;
-  .ant-tag {
-    margin-bottom: 6px;
-  }
-  .ant-tag-checkabel-checked {
-    background-color: #44cef6;
-  }
-  .ant-tag-checkabel:active {
-    background-color: #177cb0;
-  }
-`;
-
 const { CheckableTag } = Tag;
 
 const Filter = () => {
@@ -135,3 +121,17 @@ const Filter = () => {
 };
 
 export default Filter;
+
+const FilterContent = styled.div`
+  padding: 10px 0;
+  white-space: normal;
+  .ant-tag {
+    margin-bottom: 6px;
+  }
+  .ant-tag-checkabel-checked {
+    background-color: #44cef6;
+  }
+  .ant-tag-checkabel:active {
+    background-color: #177cb0;
+  }
+`;

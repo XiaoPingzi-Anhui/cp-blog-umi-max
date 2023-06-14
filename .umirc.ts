@@ -71,6 +71,26 @@ export default defineConfig({
         },
       ],
     },
+    {
+      name: '工具',
+      routes: [
+        {
+          name: '零宽字符加密',
+          routes: [
+            {
+              name: '文本加密',
+              path: '/tools/zeroWidthCharacterEncryption/textEncryption',
+              component: './tools/zeroWidthCharacterEncryption/textEncryption',
+            },
+            {
+              name: '图片加密',
+              path: '/tools/zeroWidthCharacterEncryption/imageEncryption',
+              component: './tools/zeroWidthCharacterEncryption/imageEncryption',
+            },
+          ],
+        },
+      ],
+    },
   ],
   /* 应用里要读到环境变量得在这里也配一下 */
   define: {
