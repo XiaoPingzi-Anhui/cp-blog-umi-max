@@ -117,7 +117,7 @@ const MarkDownEditor = () => {
             style={{ width: '370px' }}
             value={articleTitle}
             showCount
-            maxLength={20}
+            maxLength={30}
             onChange={onTitleChange}
           />
         ),
