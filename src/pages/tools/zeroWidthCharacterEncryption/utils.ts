@@ -26,7 +26,7 @@ export function decodeStr(cipherText: string) {
   );
   return {
     carrierText: text,
-    hiddenText: cipherText.length
+    hiddenText: encryptText.length
       ? encryptText
           .split(String.fromCharCode(8206))
           .map((char) => {
