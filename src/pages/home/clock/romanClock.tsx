@@ -106,7 +106,7 @@ const RomanClock: FC<Props> = ({
   }, [textLists, curTime, size, darkColor, highlightColor, hasTotalMonth]);
 
   return (
-    <ClockWrapper backgroundColor={backgroundColor} size={size} ref={clockRef}>
+    <ClockWrapper background_color={backgroundColor} size={size} ref={clockRef}>
       {timeDom}
     </ClockWrapper>
   );
@@ -114,10 +114,10 @@ const RomanClock: FC<Props> = ({
 
 export default RomanClock;
 
-const ClockWrapper = styled.div<{ backgroundColor: string; size: number }>`
+const ClockWrapper = styled.div<{ background_color: string; size: number }>`
   position: relative;
   margin: auto;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ background_color }) => background_color};
   height: ${({ size }) => size}px;
   width: ${({ size }) => size}px;
   transform: rotate(90deg);
