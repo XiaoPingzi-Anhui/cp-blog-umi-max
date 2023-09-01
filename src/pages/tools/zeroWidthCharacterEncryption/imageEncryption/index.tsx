@@ -45,6 +45,7 @@ export default function ImageEncryption() {
         canvasRef.current?.add(i);
         canvasRef.current?.renderAll();
       });
+      setShowDownload(true);
     }
   }, [showImage, encryptImage]);
 
