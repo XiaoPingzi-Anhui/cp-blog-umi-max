@@ -80,4 +80,13 @@ export const getFiles = (multiple = true): Promise<string[]> =>
     };
     inputFile.click();
   })
-
+/**
+ * 将数字化为非奇数
+ * @param num 
+ * @returns 
+ */
+export const evenNum = (num: number) => {
+  num = num > 254 ? num - 1 : num
+  num = num % 2 == 1 ? num - 1 : num
+  return num
+}
