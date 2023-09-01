@@ -3,6 +3,7 @@ import { styled } from '@umijs/max';
 import { PageContainer } from '@ant-design/pro-components';
 import UploadImage, { SIZE } from './components/uploadImage';
 import { useMemoizedFn, useMount } from 'ahooks';
+import { Image as AntImage } from 'antd';
 import { fabric } from 'fabric';
 
 export default function ImageEncryption() {
@@ -13,6 +14,8 @@ export default function ImageEncryption() {
 
   useMount(() => {
     canvasRef.current = new fabric.Canvas('encryptCanvas', {
+      height: SIZE,
+      width: SIZE,
       isDrawingMode: false, //自由绘画模式
       selection: false,
       hoverCursor: 'pointer',
@@ -105,12 +108,16 @@ export default function ImageEncryption() {
       {showDownload && (
         <>
           <button onClick={onDownload}>下载加密图片</button>
-          <canvas
-            id="encryptCanvas"
-            ref={canvasRef}
-            width={SIZE}
-            height={SIZE}
-          ></canvas>
+          <AntImage
+            height={150}
+            src={canvasRef.current?.toDataURL({
+              width: SIZE,
+              height: SIZE,
+              left: 0,
+              top: 0,
+              format: 'png',
+            })}
+          />
         </>
       )}
     </PageContainer>
