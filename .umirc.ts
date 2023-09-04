@@ -79,13 +79,18 @@ export default defineConfig({
           routes: [
             {
               name: '文本加密',
-              path: '/tools/zeroWidthCharacterEncryption/textEncryption',
+              path: '/tools/zeroWidthCharacterEncryption/textEncrypt',
               component: './tools/zeroWidthCharacterEncryption/textEncryption',
             },
             {
               name: '图片加密',
-              path: '/tools/zeroWidthCharacterEncryption/imageEncryption',
-              component: './tools/zeroWidthCharacterEncryption/imageEncryption',
+              path: '/tools/zeroWidthCharacterEncryption/imageEncrypt',
+              component: './tools/zeroWidthCharacterEncryption/imageEncryption/encrypt',
+            },
+            {
+              name: '图片解密',
+              path: '/tools/zeroWidthCharacterEncryption/imageDecrypt',
+              component: './tools/zeroWidthCharacterEncryption/imageEncryption/decrypt',
             },
           ],
         },

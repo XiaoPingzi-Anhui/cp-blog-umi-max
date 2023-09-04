@@ -1,16 +1,18 @@
 import { useEffect, useState, useRef } from 'react';
-import { styled } from '@umijs/max';
 import { PageContainer } from '@ant-design/pro-components';
 import UploadImage, { SIZE } from './components/uploadImage';
 import { useMemoizedFn, useMount } from 'ahooks';
 import { Image as AntImage } from 'antd';
 import { fabric } from 'fabric';
+import shortid from 'shortid';
+import { onDownloadImage } from '../utils';
 
-export default function ImageEncryption() {
+export default function ImageEncrypt() {
   const [showImage, setShowImage] = useState<any>();
   const [encryptImage, setEncryptImage] = useState<any>();
   const canvasRef = useRef<any>();
   const [showDownload, setShowDownload] = useState(false);
+  const [previewKey, setPreviewKey] = useState(shortid());
 
   useMount(() => {
     canvasRef.current = new fabric.Canvas('encryptCanvas', {
@@ -49,6 +51,7 @@ export default function ImageEncryption() {
         canvasRef.current?.renderAll();
       });
       setShowDownload(true);
+      setPreviewKey(shortid());
     }
   }, [showImage, encryptImage]);
 
@@ -88,28 +91,26 @@ export default function ImageEncryption() {
       top: 0,
       format: 'png',
     });
-    const link = document.createElement('a');
-    link.download = 'canvas.png';
-    link.href = dataURL;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    onDownloadImage(dataURL);
   });
 
   return (
     <PageContainer>
       <UploadImage
-        preText={'请选择要加密的图片 ：'}
+        preText={'请选择要加密的图片：'}
         onUpload={onEncryptImageUpload}
         dataUrlChange
       />
 
-      <UploadImage preText={'请选择要加密的图片 ：'} onUpload={setShowImage} />
+      <UploadImage preText={'请选择要加密的图片：'} onUpload={setShowImage} />
       {showDownload && (
         <>
-          <button onClick={onDownload}>下载加密图片</button>
+          <button onClick={onDownload} style={{ marginRight: '10px' }}>
+            下载加密图片
+          </button>
           <AntImage
-            height={150}
+            key={previewKey}
+            height={200}
             src={canvasRef.current?.toDataURL({
               width: SIZE,
               height: SIZE,
@@ -123,5 +124,3 @@ export default function ImageEncryption() {
     </PageContainer>
   );
 }
-
-const TextWrapper = styled.div``;

@@ -90,3 +90,16 @@ export const evenNum = (num: number) => {
   num = num % 2 == 1 ? num - 1 : num
   return num
 }
+
+/**
+ * 下载图片
+ * @param dataURL 图片编码
+ */
+export const onDownloadImage = (dataURL: string) => {
+  const link = document.createElement('a');
+  link.download = 'canvas.png';
+  link.href = dataURL;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}

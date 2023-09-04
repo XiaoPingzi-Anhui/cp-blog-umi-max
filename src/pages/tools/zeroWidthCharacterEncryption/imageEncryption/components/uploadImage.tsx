@@ -12,6 +12,7 @@ interface Props {
   preText: string;
   onUpload: (imageData: MyImageData | string) => void;
   dataUrlChange?: boolean;
+  decrypt?: boolean;
 }
 
 export const SIZE = 800;
@@ -25,6 +26,7 @@ const UploadImage: FC<Props> = ({
   preText,
   onUpload,
   dataUrlChange = false,
+  decrypt = false,
 }) => {
   const [imageUrl, setImageUrl] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,17 +66,27 @@ const UploadImage: FC<Props> = ({
                   onUpload(canvas.toDataURL('image/png' as any));
                 } else {
                   let imageData: any = ctx.getImageData(0, 0, SIZE, SIZE);
-                  imageData.binaryList = Array.from(
-                    imageData.data,
-                    (color: any, index) => {
-                      imageData.data[index] = evenNum(imageData.data[index]);
-                      color = evenNum(color)
-                        .toString(2)
-                        .padStart(8, '0')
-                        .split('');
-                      return color;
-                    },
-                  );
+                  if (decrypt) {
+                    imageData.binaryList = Array.from(
+                      imageData.data,
+                      (color: any, index) => {
+                        color = color.toString(2).padStart(8, '0').split('');
+                        return color;
+                      },
+                    );
+                  } else {
+                    imageData.binaryList = Array.from(
+                      imageData.data,
+                      (color: any, index) => {
+                        imageData.data[index] = evenNum(imageData.data[index]);
+                        color = evenNum(color)
+                          .toString(2)
+                          .padStart(8, '0')
+                          .split('');
+                        return color;
+                      },
+                    );
+                  }
                   onUpload(imageData);
                 }
               }, 500);
