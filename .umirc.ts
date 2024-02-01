@@ -73,6 +73,8 @@ export default defineConfig({
     },
     {
       name: '工具',
+      path: '/tools',
+      hideInBreadcrumb: true,
       routes: [
         {
           name: '零宽字符加密',
@@ -85,14 +87,21 @@ export default defineConfig({
             {
               name: '图片加密',
               path: '/tools/zeroWidthCharacterEncryption/imageEncrypt',
-              component: './tools/zeroWidthCharacterEncryption/imageEncryption/encrypt',
+              component:
+                './tools/zeroWidthCharacterEncryption/imageEncryption/encrypt',
             },
             {
               name: '图片解密',
               path: '/tools/zeroWidthCharacterEncryption/imageDecrypt',
-              component: './tools/zeroWidthCharacterEncryption/imageEncryption/decrypt',
+              component:
+                './tools/zeroWidthCharacterEncryption/imageEncryption/decrypt',
             },
           ],
+        },
+        {
+          name: '斗牛计算器',
+          path: '/tools/bullFightCalculator',
+          component: './tools/bullFightCalculator',
         },
       ],
     },
