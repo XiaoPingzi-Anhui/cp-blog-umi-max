@@ -1,8 +1,8 @@
-import { FC, memo } from 'react';
-import { Input, Space } from 'antd';
-import { useControllableValue } from 'ahooks';
+import { FC, memo, useRef } from 'react';
+import styled from 'styled-components';
+import { useControllableValue, useMemoizedFn, useLatest } from 'ahooks';
 
-import { CARDS } from './utils';
+import InputItem, { isLegal } from './inputItem';
 
 interface Props {
   inputNumber?: number;
@@ -15,31 +15,34 @@ const CardInput: FC<Props> = ({ inputNumber = 5, ...restProps }) => {
     defaultValue: new Array(inputNumber).fill(''),
   });
 
+  const inputListsRef = useRef<HTMLDivElement>(null);
+  const latestCards = useLatest(cards);
+
+  const onComplete = useMemoizedFn((i, nextValue = '') => {
+    /* @ts-ignore */
+    inputListsRef.current?.children[i]?.blur();
+    setTimeout(() => {
+      const emptyIndex = latestCards.current.findIndex((card) => !card);
+      if (isLegal(nextValue) && emptyIndex !== -1) {
+        /* @ts-ignore */
+        inputListsRef.current?.children[emptyIndex]?.focus();
+        setCards((preState) => {
+          preState[emptyIndex] = nextValue;
+          return [...preState];
+        });
+      }
+    }, 100);
+  });
+
   return (
-    <Space>
+    <Space ref={inputListsRef}>
       {Array.from({ length: inputNumber }, (x, i) => i).map((i) => (
-        <Input
+        <InputItem
           key={i}
           value={cards[i]}
-          size="large"
-          style={{ width: 42 }}
-          onChange={(e) => {
-            const value = e.target.value?.toUpperCase();
-            if (CARDS.includes(value) || value === '1' || value === '') {
-              setCards((preState) => {
-                preState[i] = value;
-                return [...preState];
-              });
-            }
-          }}
-          onBlur={() => {
-            if (cards[i] === '1') {
-              setCards((preState) => {
-                preState[i] = 'A';
-                return [...preState];
-              });
-            }
-          }}
+          sort={i}
+          setCards={setCards}
+          onComplete={onComplete}
         />
       ))}
     </Space>
@@ -47,3 +50,8 @@ const CardInput: FC<Props> = ({ inputNumber = 5, ...restProps }) => {
 };
 
 export default memo(CardInput);
+
+const Space = styled.div`
+  display: inline-flex;
+  gap: 8px;
+`;
