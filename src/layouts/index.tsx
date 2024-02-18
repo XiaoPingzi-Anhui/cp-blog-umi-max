@@ -1,7 +1,14 @@
-import { useRef, ReactElement } from 'react';
+import { useRef, ReactElement, CSSProperties } from 'react';
 import { useOutlet, useLocation, matchPath } from 'react-router-dom';
 import { NO_KEEPALIVE_URL } from '@/constants/url';
 import Global from '@/global';
+
+const STYLE_OBJ: CSSProperties = {
+  height: '100%',
+  width: '100%',
+  position: 'relative',
+  overflow: 'hidden auto',
+};
 
 const Layout = () => {
   const location = useLocation();
@@ -20,12 +27,7 @@ const Layout = () => {
       {Object.entries(keepElements.current).map(([pathname, children]: any) => (
         <div
           key={pathname}
-          style={{
-            height: '100%',
-            width: '100%',
-            position: 'relative',
-            overflow: 'hidden auto',
-          }}
+          style={STYLE_OBJ}
           className="runtime-keep-alive-layout"
           hidden={!matchPath(location.pathname, pathname)}
         >

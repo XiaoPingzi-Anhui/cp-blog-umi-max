@@ -5,6 +5,7 @@ import { coldarkCold } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
+import 'github-markdown-css/github-markdown-light.css';
 // import MarkNav from 'markdown-navbar';
 // import 'markdown-navbar/dist/navbar.css';
 
@@ -16,6 +17,7 @@ export default function ShowMarkDown({
   return (
     <>
       <ReactMarkdown
+        className="markdown-body"
         remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[rehypeKatex]}
         components={{

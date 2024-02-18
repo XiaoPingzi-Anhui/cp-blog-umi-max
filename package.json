@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.7",
     "fabric": "^5.2.4",
+    "github-markdown-css": "^5.5.1",
     "jinrishici": "^1.0.6",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",

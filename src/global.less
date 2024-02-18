@@ -2,6 +2,7 @@ html {
   height: 100%;
   overflow: auto;
   overflow: overlay;
+
   &::-webkit-scrollbar {
     width: 12px; /* 纵向滚动条宽度 */
     height: 12px; /* 横向滚动条高度 */
@@ -16,10 +17,23 @@ html {
     background-color: #7886aa99;
   }
 }
+
 body {
   height: 100%;
   margin: 0;
+
   #root {
     height: 100%;
+  }
+}
+
+.markdown-body {
+  box-sizing: border-box;
+  margin: 0 auto;
+  background-color: transparent !important;
+
+  pre {
+    padding: 0 !important;
+    margin: 0 !important;
   }
 }
