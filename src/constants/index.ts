@@ -57,6 +57,7 @@ export const BASIC_CATEGORY = [
   '生活感想',
   '优秀的工具(库)',
   '其他',
+  'linux',
 ];
 
 export const BASIC_LABEL = [
@@ -76,4 +77,5 @@ export const BASIC_LABEL = [
   'nvm',
   'echarts',
   'html2canvas',
+  'linux',
 ];
