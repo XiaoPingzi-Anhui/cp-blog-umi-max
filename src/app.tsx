@@ -7,6 +7,7 @@ import { verifyToken } from '@/utils/jwt';
 import { ACCESS_TOKEN } from '@/constants';
 import { LOGIN_LINK } from '@/constants/url';
 import HeaderRight from './pages/user/headerRight';
+import ICPBar from './components/icp';
 
 /* 全局初始化数据配置，用于 Layout 用户信息和权限初始化 */
 export async function getInitialState(): Promise<InitialState> {
@@ -51,6 +52,7 @@ export const layout: RunTimeLayoutConfig = () => {
     logo: logoSvg,
     title: '菜狗搬砖小站',
     rightContentRender: () => <HeaderRight />,
+    footerRender: () => <ICPBar />,
     onPageChange: async () => {
       try {
         await verifyToken(Cookies.get(ACCESS_TOKEN)!);

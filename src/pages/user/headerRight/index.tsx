@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useModel, history } from '@umijs/max';
+import { useModel, history, styled } from '@umijs/max';
 import { useMemoizedFn } from 'ahooks';
 import Cookies from 'js-cookie';
 import dayjs from 'dayjs';
@@ -17,6 +17,7 @@ import signatureSvg from '@/assets/images/signature.svg';
 import birthDaySvg from '@/assets/images/birthday.svg';
 import './headerRight.less';
 import shortid from 'shortid';
+import TodayPoetry from '@/components/todayPoetry';
 
 export enum Gender {
   MALE = '男',
@@ -100,20 +101,29 @@ export default function HeaderRight() {
   ));
 
   return (
-    <>
-      <Popover
-        // trigger={['click']}
-        content={getPopoverContent}
-        placement="bottomRight"
-        getPopupContainer={getPopupContainer}
-      >
-        <Avatar size="large" src={avatarUrl} alt="头像" />
-      </Popover>
-      <EditModal
-        key={modalKey}
-        editModalOpen={open}
-        setEditModalOpen={setOpen}
-      />
-    </>
+    <Container>
+      <TodayPoetry />
+      <div>
+        <Popover
+          // trigger={['click']}
+          content={getPopoverContent}
+          placement="bottomRight"
+          getPopupContainer={getPopupContainer}
+        >
+          <Avatar size="large" src={avatarUrl} alt="头像" />
+        </Popover>
+        <EditModal
+          key={modalKey}
+          editModalOpen={open}
+          setEditModalOpen={setOpen}
+        />
+      </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  width: calc(100vw - 166px - 32px);
+  display: inline-flex;
+  align-items: center;
+`;

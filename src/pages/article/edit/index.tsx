@@ -125,7 +125,11 @@ const MarkDownEditor = () => {
       footer={
         pageVisible
           ? [
-              <Button key="3" onClick={onReset}>
+              <Button
+                key="3"
+                onClick={onReset}
+                style={{ position: 'relative', top: -10 }}
+              >
                 重置
               </Button>,
               <Button
@@ -134,6 +138,7 @@ const MarkDownEditor = () => {
                 key="2"
                 type="primary"
                 onClick={onSubmit}
+                style={{ position: 'relative', top: -10 }}
               >
                 提交
               </Button>,

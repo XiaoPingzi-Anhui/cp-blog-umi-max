@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useMount } from 'ahooks';
+import { useMemoizedFn, useMount, useRafInterval } from 'ahooks';
 import styled from 'styled-components';
 import { load } from 'jinrishici';
 
 export default function TodayPoetry() {
   const [poem, setPoem] = useState('');
 
-  useMount(() => {
+  const getPoem = useMemoizedFn(() => {
     load(
       (res: {
         data: {
@@ -16,6 +16,12 @@ export default function TodayPoetry() {
     );
   });
 
+  useRafInterval(() => {
+    getPoem();
+  }, 60000);
+
+  useMount(() => getPoem());
+
   return <PoemWrapper>{poem.substring(0, poem.length - 1)}</PoemWrapper>;
 }
 
@@ -23,7 +29,9 @@ export const PoemWrapper = styled.div`
   /* position: absolute;
   top: 50%; */
   width: 100%;
-  font-size: 40px;
+  font-size: 18px;
+  line-height: 20px;
+  transition: all 0.3s;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 600;
   text-align: center;
