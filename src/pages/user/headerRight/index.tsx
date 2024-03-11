@@ -101,7 +101,7 @@ export default function HeaderRight() {
   ));
 
   return (
-    <Container>
+    <>
       <TodayPoetry />
       <div>
         <Popover
@@ -118,12 +118,6 @@ export default function HeaderRight() {
           setEditModalOpen={setOpen}
         />
       </div>
-    </Container>
+    </>
   );
 }
-
-const Container = styled.div`
-  width: calc(100vw - 166px - 32px);
-  display: inline-flex;
-  align-items: center;
-`;

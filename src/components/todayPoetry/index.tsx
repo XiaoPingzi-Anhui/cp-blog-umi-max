@@ -26,8 +26,10 @@ export default function TodayPoetry() {
 }
 
 export const PoemWrapper = styled.div`
-  /* position: absolute;
-  top: 50%; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   font-size: 18px;
   line-height: 20px;
