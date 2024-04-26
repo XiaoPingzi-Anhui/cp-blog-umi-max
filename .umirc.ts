@@ -103,6 +103,11 @@ export default defineConfig({
           path: '/tools/bullFightCalculator',
           component: './tools/bullFightCalculator',
         },
+        {
+          name: 'JS 引擎模拟',
+          path: '/tools/jsEngine',
+          component: './tools/jsEngine',
+        },
       ],
     },
   ],

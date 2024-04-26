@@ -1,11 +1,20 @@
 import { notification } from 'antd';
-import { useMount, useKeyPress, useBoolean } from 'ahooks';
+import { useMount, useKeyPress, useLocalStorageState } from 'ahooks';
 import { memo } from 'react';
 import StarCanvas from './starCanvas';
+import { MOUSE_STAR_SHOW_LOCAL_STORE_KEY } from '@/constants/localStoreKey';
 
 const MouseStar = () => {
-  const [showStar, { toggle }] = useBoolean(true);
-  useKeyPress('alt.shift.m', toggle);
+  const [showStar, setShowStar] = useLocalStorageState<boolean | undefined>(
+    MOUSE_STAR_SHOW_LOCAL_STORE_KEY,
+    {
+      defaultValue: true,
+    },
+  );
+
+  useKeyPress('alt.shift.m', () => {
+    setShowStar((preState) => !preState);
+  });
   const [api, contextHolder] = notification.useNotification();
 
   useMount(() => {
