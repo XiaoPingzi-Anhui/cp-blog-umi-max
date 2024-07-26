@@ -16,6 +16,7 @@ import bgJpg from '@/assets/images/b3b10388de01440c8f11c4adcff61ec3.jpg';
 import { HOME_LINK } from '@/constants/url';
 import { Authority, ACCESS_TOKEN } from '@/constants';
 import styles from './login.less';
+import ICPBar from '@/components/icp';
 
 enum TabType {
   LOGIN = 'login',
@@ -135,6 +136,7 @@ export default () => {
         </Tabs>
         {tabType === TabType.LOGIN && <LoginForm />}
         {tabType === TabType.REGISTER && <RegisterForm />}
+        <ICPBar />
       </LoginFormPage>
     </LoginPageWrapper>
   );
